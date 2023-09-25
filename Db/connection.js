@@ -1,4 +1,4 @@
-import { Sequelize} from 'sequelize';
+import { Sequelize, DataTypes } from 'sequelize';
 export const sequelize = new Sequelize('postgres_ums', 'postgres_ums_user', 'UwGUJmrW8QvFdmZj0PsuOgZlWlY8Gff5', {
     host: 'dpg-ck871gg8elhc73ebv7s0-a',
     port:5432,
