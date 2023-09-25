@@ -3,9 +3,9 @@ import { DataTypes } from 'sequelize';
 import User from './User.model.js';
 
 const role = sequelize.define('role',{
-    id : {
-        type :DataTypes.STRING,
-        allowNull:false,
+    role_id : {
+        type :DataTypes.INTEGER,
+        autoIncrement: true,
         primaryKey: true
     },
     name:{

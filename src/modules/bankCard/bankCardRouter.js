@@ -1,4 +1,4 @@
-import * as MainController from "../mainController/MainController.js"
+import * as MainController from "../Controller/MainController.js"
 import * as BankCardValidator from "./BankCardValidator.js"
 
 import {Router} from "express";

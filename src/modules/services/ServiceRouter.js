@@ -1,5 +1,5 @@
-import * as MainController from '../mainController/MainController.js'
-import * as ServiceValidator from "./ServiceController/ServiceValidator.js"
+import * as MainController from '../Controller/MainController.js'
+import * as ServiceValidator from "./ServiceValidator.js"
 import { Router} from 'express'
 import ServicesModel from "../../../Db/models/Services.model.js";
 

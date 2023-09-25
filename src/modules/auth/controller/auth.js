@@ -2,25 +2,10 @@
 import userModel from '../../../../Db/models/User.model.js'
 import { generateToken } from '../../../utils/GenerateToken.js';
 import { compare, hash } from '../../../utils/HashAndCompare.js';
-import crypto from'crypto';
-
+import generator from 'generate-password';
 import nodemailer from"nodemailer";
-
-function generateRandomPassword(length) {
-    const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
-    let password = '';
   
-    const randomBytes = crypto.randomBytes(length);
-    for (let i = 0; i < length; i++) {
-      const randomIndex = randomBytes[i] % charset.length;
-      password += charset[randomIndex];
-    }
-  
-    return password;
-  }
-  
-
-export const signUp =async(req,res,next)=>{
+export const signUp =async(req,res)=>{
     try {
         const {name,email,password,roleId,level,status}=req.body
         const checkUser =  await userModel.findOne({where: {email:email}})
@@ -33,39 +18,33 @@ export const signUp =async(req,res,next)=>{
         const user =  await userModel.create({name,email,password:hashPassword,status,roleId,level})
         return res.json({message : "User is added"})
     } catch (error) {
-        return res.json({message : "Catch Error",error})
+        return res.json({message : "Catch Error",error,stack:error.stack})
     }
 }
 
-export const login =async(req,res,next)=>{
+export const login =async(req,res)=>{
     try {
         const {email,password}=req.body
-        console.log({email,password});
-
         const checkUser =  await userModel.findOne({ where: {email:email}})
         if(!checkUser){
             return res.json({message : "Email not Exist"})
         }
-        console.log({p:checkUser.password,password});
- 
         const matchPassword = compare({  plainText :password, hashValue : checkUser.password})
-       
+    
         if(!matchPassword){
             return res.json({message : "In-valid Password"})
         }
-
-
         return res.json({checkUser})
     } catch (error) {
         return res.json({message : "Catch Error",error,stack:error.stack})
     }
 }
 
-export const forgetPass = async(req,res,next)=>{
- 
+export const forgetPass = async(req,res)=>{
 
-const randomPassword = generateRandomPassword(8);
-
+    const randomPassword = generator.generate({
+        length: 8,
+        numbers: true});
 
     try {
         const {email}= req.body;
@@ -73,7 +52,6 @@ const randomPassword = generateRandomPassword(8);
         if(!checkUser){
             return res.json({message : "Email not Exist"})
         }
-
 
         const hashPassword = hash({
             plainText :randomPassword
@@ -102,8 +80,8 @@ const randomPassword = generateRandomPassword(8);
           }
           sendmail(randomPassword);
         return res.json({randomPassword})
-    }
-catch (error) {
+        }
+    catch (error) {
         console.log(error)
-    }
+        }
 }

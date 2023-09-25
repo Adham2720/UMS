@@ -1,5 +1,5 @@
-import * as MainController from '../mainController/MainController.js'
-import * as RoleValidator from "./controller/roleValidator.js"
+import * as MainController from '../Controller/MainController.js'
+import * as RoleValidator from "./roleValidator.js"
 import {Router} from 'express'
 import RolesModel from "../../../Db/models/roles.model.js";
 

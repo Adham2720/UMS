@@ -1,5 +1,5 @@
-import * as MainController from '../mainController/MainController.js'
-import * as PaymentValidator from './controller/paymentValidator.js'
+import * as MainController from '../Controller/MainController.js'
+import * as PaymentValidator from './paymentValidator.js'
 import {Router} from 'express'
 import paymentModel from "../../../Db/models/payment.model.js";
 

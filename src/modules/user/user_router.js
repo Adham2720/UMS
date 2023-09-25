@@ -1,5 +1,5 @@
-import * as MainController from '../mainController/MainController.js'
-import * as UserValidator from './controller/UserValidator.js'
+import * as MainController from '../Controller/MainController.js'
+import * as UserValidator from './UserValidator.js'
 import {Router} from 'express'
 import User from "../../../Db/models/User.model.js";
 
