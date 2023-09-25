@@ -5,6 +5,13 @@ import {Router} from 'express'
 import payment from "../../../Db/models/payment.model.js";
 import paymentModel from "../../../Db/models/payment.model.js";
 const  router = Router()
+
+sequelize.query('ALTER TABLE "payments" DROP CONSTRAINT "payments_UserId_ServiceId_key";')   .then(() => {
+     console.log('Successfully deleted constraint');
+ })
+     .catch((error) => {
+         console.error('Failed to delete constraint', error);
+     });
 router.get('/getPaymentHistory', (req,res)=>{
      MainController.getAllRecordsWithFilter(paymentModel,res,req.body)
 })
