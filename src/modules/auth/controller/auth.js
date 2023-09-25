@@ -22,12 +22,7 @@ function generateRandomPassword(length) {
 
 export const signUp =async(req,res,next)=>{
     try {
-        const {name,email,password,re_password,roleId,level,status}=req.body
-        console.log({name,email,password,re_password,roleId,level,status});
-
-        if(password != re_password){
-            return res.json({message : "Password misMatch cPassword"})
-        }
+        const {name,email,password,roleId,level,status}=req.body
         const checkUser =  await userModel.findOne({where: {email:email}})
         if(checkUser){
             return res.json({message : "Email Exist"})
@@ -58,12 +53,6 @@ export const login =async(req,res,next)=>{
         if(!matchPassword){
             return res.json({message : "In-valid Password"})
         }
-
-        // const token = generateToken({
-        //     payload : {id : checkUser._id , name :checkUser.name,email:checkUser.email , isLoggedIn : true },
-        //     expiresIn :60*60
-        // })
-
 
 
         return res.json({checkUser})

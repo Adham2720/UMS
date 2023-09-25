@@ -8,6 +8,7 @@ const userSchema = Joi.object({
     password: Joi.string().required(),
     status: Joi.string().valid('archived','active'),
     level: Joi.number().integer().allow(null).required(),
+    roleId:Joi.number().optional()
 });
 
 export  const isValidUser=(req,res)=>{
