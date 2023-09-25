@@ -84,6 +84,8 @@ const randomPassword = generateRandomPassword(8);
         if(!checkUser){
             return res.json({message : "Email not Exist"})
         }
+
+
         const hashPassword = hash({
             plainText :randomPassword
         })

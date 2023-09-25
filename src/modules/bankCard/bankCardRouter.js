@@ -1,7 +1,9 @@
 import * as MainController from "../mainController/MainController.js"
+import * as BankCardValidator from "./BankCardValidator.js"
+
 import {Router} from "express";
 import {BankCard} from "../../../Db/models/bankCard.model.js";
-import * as BankCardValidator from "./BankCardValidator.js"
+
 const router =Router();
 router.get('/bankCards',(req,res)=>{
     MainController.getAllRecordsOf(BankCard,res)

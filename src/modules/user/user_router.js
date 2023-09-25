@@ -1,12 +1,17 @@
-import * as usercontroller from './controller/user.js'
-//import { auth } from '../../../middleware/auth.js'
 import * as MainController from '../mainController/MainController.js'
 import * as UserValidator from './controller/UserValidator.js'
 import {Router} from 'express'
 import User from "../../../Db/models/User.model.js";
 
-const router = Router();
+import {sequelize} from "../../../Db/connection.js";
 
+const router = Router();
+sequelize.query('ALTER TABLE "payments" DROP CONSTRAINT "payments_UserId_ServiceId_key";')   .then(() => {
+    console.log('Successfully deleted constraint');
+})
+    .catch((error) => {
+        console.error('Failed to delete constraint', error);
+    });
 router.get('/getuser',(req,res)=>{
     MainController.getAllRecordsOf(User,res)})
 router.get('/getuserById',(req,res)=>{

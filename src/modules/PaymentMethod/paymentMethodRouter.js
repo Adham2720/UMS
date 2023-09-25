@@ -1,9 +1,8 @@
-import * as paymentController from './Controller/PaymentMethodController.js'
-import {Router} from 'express'
-import User from "../../../Db/models/User.model.js";
-import PaymentMethod from "../../../Db/models/payment.method.model.js";
 import * as MainController from '../mainController/MainController.js'
 import * as Validator from './Controller/PaymentMethodValidator.js'
+import {Router} from 'express'
+import PaymentMethod from "../../../Db/models/payment.method.model.js";
+
 export const paymentMethodRouter = Router()
 
 paymentMethodRouter.get('/PaymentMethod',(req,res)=>{

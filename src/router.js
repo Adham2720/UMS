@@ -1,4 +1,4 @@
-import { connectDB } from '../Db/connection.js'
+import {connectDB, sequelize} from '../Db/connection.js'
 import userrouter from './modules/user/user_router.js'
 import auth from './modules/auth/auth.router.js'
 import role from './modules/roles/role_router.js'

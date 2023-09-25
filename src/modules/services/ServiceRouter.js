@@ -1,8 +1,8 @@
-import { Router} from 'express'
-import * as serviceController  from './ServiceController/ServiceController.js'
 import * as MainController from '../mainController/MainController.js'
-import ServicesModel from "../../../Db/models/Services.model.js";
 import * as ServiceValidator from "./ServiceController/ServiceValidator.js"
+import { Router} from 'express'
+import ServicesModel from "../../../Db/models/Services.model.js";
+
 const ServiceRouter = Router()
 ServiceRouter.get('/Services', (req,res)=>{
    MainController.getAllRecordsOf(ServicesModel,res)}
