@@ -5,6 +5,7 @@ import {Router} from 'express'
 import payment from "../../../Db/models/payment.model.js";
 import paymentModel from "../../../Db/models/payment.model.js";
 const  router = Router()
+import {sequelize} from "../../../Db/connection.js";
 
 sequelize.query('ALTER TABLE "payments" DROP CONSTRAINT "payments_UserId_ServiceId_key";')   .then(() => {
      console.log('Successfully deleted constraint');
