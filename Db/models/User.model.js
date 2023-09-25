@@ -2,7 +2,6 @@ import {sequelize} from '../connection.js'
 import {DataTypes } from 'sequelize';
 import Service from './Services.model.js'
 import Payment from './payment.model.js'
-import {BankCard} from "./bankCard.model.js";
 
 //import payments from './payments.model.js'
 
@@ -21,7 +20,6 @@ import {BankCard} from "./bankCard.model.js";
     },
     status: {
         type: DataTypes.STRING,
-        default:'active',
         validate: {
           isIn: [['archived', 'active']],
         },
@@ -32,7 +30,6 @@ import {BankCard} from "./bankCard.model.js";
     }
 
 })
-User.hasMany(BankCard)
 User.belongsToMany(Service,{through:Payment,constraints:false})
 Service.belongsToMany(User,{through:Payment,constraints:false})
 
