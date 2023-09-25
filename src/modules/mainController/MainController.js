@@ -33,7 +33,6 @@ export const addRecord= async (model,req,res,valid)=>{
         }
 
 }
-
 export const updateRecord= async(model,req,res,valid)=>{
     const where ={
         where: {
@@ -49,10 +48,9 @@ export const updateRecord= async(model,req,res,valid)=>{
             throw error;
         }
     }else{
-        return res.send('unSuccesfull update')
+        return res.send('not Valid')
     }
 }
-
 export const deleteRecord= async(model,req,res)=>{
 
 

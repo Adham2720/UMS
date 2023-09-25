@@ -4,7 +4,7 @@ import { generateToken } from '../../../utils/GenerateToken.js';
 import { compare, hash } from '../../../utils/HashAndCompare.js';
 import crypto from'crypto';
 
-import nodemailer from "nodemailer";
+import nodemailer from"nodemailer";
 
 function generateRandomPassword(length) {
     const charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
