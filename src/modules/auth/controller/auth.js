@@ -10,7 +10,7 @@ export const signUp =async(req,res)=>{
         const {name,email,password,roleId,level,status}=req.body
         const checkUser =  await userModel.findOne({where: {email:email}})
         if(checkUser){
-            return res.json({message : "Email Exist"})
+            return res.json({message : "Catch Error",error,stack:error.stack})
         }
         const hashPassword = hash({
             plainText :password

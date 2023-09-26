@@ -12,6 +12,7 @@ import Payment from './payment.model.js'
     },
     email :  {
         type: DataTypes.STRING,
+        unique:true,
         allowNull:false
     },
     password : {

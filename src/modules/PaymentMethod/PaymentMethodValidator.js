@@ -1,3 +1,5 @@
-export const isValidPaymentMethod=(req,res)=>{
-    return req.body.name != null;
-}
+import Joi from "joi";
+export const paymentMethodSchema = Joi.object({
+    role_id:Joi.number().optional(),
+    name: Joi.string().required(),
+});

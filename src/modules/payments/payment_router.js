@@ -1,5 +1,5 @@
-import * as MainController from '../Controller/MainController.js'
-import * as PaymentValidator from './paymentValidator.js'
+import * as MainController from '../mainController/MainController.js'
+import * as paymentController from './paymentController.js'
 import {Router} from 'express'
 import paymentModel from "../../../Db/models/payment.model.js";
 
@@ -15,10 +15,10 @@ router.get('/getAllPaymentHistory',(req,res)=>{
      MainController.getAllRecordsOf(paymentModel,res)
 })
 router.post('/addPaymentHistory',(req,res)=>{
-     MainController.addRecord(paymentModel,req,res,PaymentValidator.isValidPendingPayment)
+     paymentController.isValidPendingPayment(req,res);
 })
 
 router.put('/confirmPayment',(req,res)=>{
-     MainController.updateRecord(paymentModel,req,res,PaymentValidator.isValidConfirmedPayment)
+     paymentController.updateRecord(paymentModel,req,res,PaymentValidator.isValidConfirmedPayment)
 })
 export default router;

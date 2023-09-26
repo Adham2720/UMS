@@ -1,4 +1,4 @@
-import * as MainController from "../Controller/MainController.js"
+import * as MainController from '../mainController/MainController.js'
 import * as BankCardValidator from "./BankCardValidator.js"
 
 import {Router} from "express";
@@ -13,7 +13,7 @@ router.get('/bankCardsOfUser',(req,res)=>{
 })
 
 router.post('/bankCard',(req,res)=>{
-    MainController.addRecord(BankCard,req,res,BankCardValidator.isValidCard)
+    MainController.addRecord(BankCard,req,res,BankCardValidator.bankCardSchema)
 })
 
 

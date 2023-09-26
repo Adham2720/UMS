@@ -20,35 +20,40 @@ export const getAllRecordsWithFilter = async (model ,res,options )=>{
 
     validateEmptyAndSend(records,res)
 }
-export const addRecord= async (model,req,res,valid)=>{
-        if(await valid(req,res,req.body)){
-            try {
-                 await model.create(req.body);
-                return  res.send('Record Created Successfully')
-            } catch (error) {
-                throw error ;
-            }
-        }else{
-           return  res.send('Validation Error')
+export const addRecord= async (model,req,res,schema)=>{
+    const error = await schema.validate(req.body).error;
+    if(error){
+        return res.json(error);
+    }else{
+        try {
+            await model.create(req.body);
+            return  res.send('Record Created Successfully')
+        } catch (error) {
+            return  res.send( error.errors) ;
         }
+    }
 
 }
-export const updateRecord= async(model,req,res,valid)=>{
+export const updateRecord= async(model,req,res,schema)=>{
     const where ={
         where: {
             id:req.body.id
         }
     }
-    if(valid(req)){
+    const validation = schema.validate(req.body).error;
+    if(!validation){
         try{
-            await model.update(req.body,where)
-            res.send('Updated Succesfully')
+            const rowsUpdate = await model.update(req.body,where)
+           if(rowsUpdate!=0){
+               return res.send(`Updated Succesfully : ${rowsUpdate}`)}else{
+               return  res.send('no rows Found ')
+           }
         }
         catch (error){
             throw error;
         }
     }else{
-        return res.send('not Valid')
+        return res.send(validation)
     }
 }
 export const deleteRecord= async(model,req,res)=>{

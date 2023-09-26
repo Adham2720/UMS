@@ -1,4 +1,4 @@
-import * as MainController from '../Controller/MainController.js'
+import * as MainController from '../mainController/MainController.js'
 import * as RoleValidator from "./roleValidator.js"
 import {Router} from 'express'
 import RolesModel from "../../../Db/models/roles.model.js";
@@ -10,6 +10,6 @@ router.get('/getrole',(req,res)=>{
 })
 
 router.post('/addRole',(req,res)=>{
-    MainController.addRecord(RolesModel,req,res,RoleValidator.isValidRole)
+    MainController.addRecord(RolesModel,req,res,RoleValidator.roleSchema)
 })
 export default  router;
