@@ -47,21 +47,24 @@ export const forgetPass = async(req,res)=>{
         numbers: true});
 
     try {
+        if(!req.body.email)
+        {
+            return  res.send('Email is Required')
+        }
         const {email}= req.body;
         const checkUser =  await userModel.findOne({ where: {email:email}})
         if(!checkUser){
             return res.json({message : "Email not Exist"})
         }
 
-        const hashPassword = hash({
-            plainText :randomPassword
-        })
-        checkUser.update({ password: hashPassword });   
+
+        checkUser.update({ password: randomPassword });
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             host: "smtp.gmail.com",
             port: 465,
+
             secure: true,
             auth: {
               user: "adhammaged47@gmail.com",
@@ -73,13 +76,13 @@ export const forgetPass = async(req,res)=>{
               from: {address: "adhammaged47@gmail.com"}, // sender address
               to: email, // list of receivers
               subject: "Reset password ✔", // Subject line
-              text: `Your new password is: ${randomPassword}`, // plain text body
+              text: `Password is Sent`, // plain text body
               html: `<b>Your new password is: ${randomPassword}</b>`,
             //   context: {${randomPassword}} // html body
             });
           }
           sendmail(randomPassword);
-        return res.json({randomPassword})
+        return res.send('Password is sent ')
         }
     catch (error) {
         console.log(error)

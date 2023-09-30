@@ -1,6 +1,25 @@
 // Implements All CRUD Operations
 
-const validateEmptyAndSend = (records,res)=>{
+import {userSchema} from "../user/UserValidator.js";
+import stripePackage from 'stripe';
+
+const stripe = stripePackage('sk_test_51NuvEcLZEHZNifXOC9yg36W1d9PpOlpFBBBalqdQfK5F4Nb5csLtzsP4zwWTJbEot4zdqe9eejPuahzXre27UCop00S4CJliQe');
+
+const createCustomer = async (email) => {
+    try {
+        const customer = await stripe.customers.create({
+            email: email,
+        });
+        console.log('Created customer:', customer.id);
+        return customer;
+    } catch (error) {
+        console.error('Error creating customer:', error);
+    }
+};
+
+
+
+const validateEmptyAndSend = (records, res)=>{
     if(records.length==0){
         res.send('Empty Database/Record list')
     }else{
@@ -20,16 +39,29 @@ export const getAllRecordsWithFilter = async (model ,res,options )=>{
 
     validateEmptyAndSend(records,res)
 }
+
+
+function trimWhitespace(body) {
+    for (const key in body) {
+        if (typeof body[key] === 'string') {
+            body[key] = body[key].trim();
+        }
+    }
+    return body}
 export const addRecord= async (model,req,res,schema)=>{
+    req.body = trimWhitespace(req.body)
     const error = await schema.validate(req.body).error;
     if(error){
         return res.json(error);
     }else{
         try {
-            await model.create(req.body);
+            if(req.body.roleId==2){
+                await createCustomer(req.body.email);
+                await model.create(req.body);
+            }
             return  res.send('Record Created Successfully')
         } catch (error) {
-            return  res.send( error.errors) ;
+            return  res.send( error) ;
         }
     }
 

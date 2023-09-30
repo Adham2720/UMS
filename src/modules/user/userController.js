@@ -5,13 +5,13 @@ export const login= async (req,res)=>{
     if(!checkUser){
         return res.json({message : "Email not Exist"})
     }else {
-        if(req.body.password!==checkUser.password){
+        if(checkUser.state=='archived'){
+            return res.json('Archived Email , cannot log in ')
+        }else if(req.body.password!==checkUser.password){
             return  res.send('Wrong Password ! ')
         }else{
             return  res.json(checkUser)
         }
-
-
     }
 
 }

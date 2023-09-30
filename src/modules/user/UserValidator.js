@@ -7,6 +7,6 @@ export const userSchema = Joi.object({
     email: Joi.string().email(),
     password:Joi.string().required(),
     status: Joi.string().valid('archived','active'),
-    level: Joi.number().integer().allow(null).required(),
+    level: Joi.number().integer().allow(null),
     roleId:Joi.number().optional()
 });
