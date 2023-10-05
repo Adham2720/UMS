@@ -48,6 +48,7 @@ function trimWhitespace(body) {
         }
     }
     return body}
+
 export const addRecord= async (model,req,res,schema)=>{
     req.body = trimWhitespace(req.body)
     const error = await schema.validate(req.body).error;
@@ -55,8 +56,10 @@ export const addRecord= async (model,req,res,schema)=>{
         return res.json(error);
     }else{
         try {
-            if(req.body.roleId==2){
-                await createCustomer(req.body.email);
+            if(req.body.roleId){
+                if(req.body.role==2){
+                     await createCustomer(req.body.email);
+                }
                 await model.create(req.body);
             }
             return  res.send('Record Created Successfully')

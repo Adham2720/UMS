@@ -1,7 +1,7 @@
 import { Sequelize, DataTypes } from 'sequelize';
-export const sequelize = new Sequelize('postgres_rzgy', 'postgres_rzgy_user', 'C2SZt0qfsWdKYQSZUEKRCN5tAcwE5DU7', {
-    host:'dpg-ckeileunpffc73b4h1hg-a',
-    port:5432,
+export const sequelize = new Sequelize('postgres', 'postgres', '1', {
+    host:'localhost',
+    port:5555,
     dialect:'postgres',
   });
 
